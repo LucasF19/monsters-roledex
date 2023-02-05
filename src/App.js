@@ -1,28 +1,52 @@
 import { Component } from "react";
 
-import "./App.css";
+import CardList from "./components/card-list/card-list.component";
+import SeachBox from "./components/search-box/search-box.component";
+import "./style.css";
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      foods: [
-        {name: 'Macarrão'},
-        {name: 'Feijão'},
-        {name: 'Salada'},
-      ]
-    }    
+      monsters: [],
+      searchField: "",
+    };
   }
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(() => {
+          return { monsters: users };
+        })
+      );
+  }
+
+  onSeachChange = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase();
+    this.setState(() => {
+      return { searchField };
+    });
+  };
+
   render() {
+    const { monsters, searchField } = this.state;
+    const { onSeachChange } = this;
+
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField);
+    });
+
     return (
       <div className="App">
-        {
-          this.state.foods.map((food) => {
-            return <h1 key={food}>{food.name}</h1>
-          })
-        }
+        <SeachBox
+          type="search"
+          placeholder="Seach your monsterse"
+          onChange={onSeachChange}
+        />
+        <CardList data={filteredMonsters} />
       </div>
     );
   }
