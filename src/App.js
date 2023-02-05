@@ -40,13 +40,22 @@ class App extends Component {
     });
 
     return (
-      <div className="App">
-        <SeachBox
-          type="search"
-          placeholder="Seach your monsterse"
-          onChange={onSeachChange}
-        />
-        <CardList data={filteredMonsters} />
+      <div className="container">
+        <div className="header">
+          <h1 className="title">Teste</h1>
+          <ul>
+            <a href="#" className="link">Home</a>
+            <a href="#" className="link">Library</a>
+            <a href="#" className="link">About</a>
+          </ul>
+        </div>
+        <div className="App">
+          <SeachBox
+            placeholder="Seach your monsterse"
+            onChange={onSeachChange}
+          />
+          <CardList data={filteredMonsters} />
+        </div>
       </div>
     );
   }
