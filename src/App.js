@@ -1,64 +1,44 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 
 import CardList from "./components/card-list/card-list.component";
 import SeachBox from "./components/search-box/search-box.component";
+import Header from "./components/header/header.component";
+
 import "./style.css";
 
-class App extends Component {
-  constructor() {
-    super();
+const App = () => {
+  
+  const [monsters, setMonsters] = useState([]);
+  const [searchField, setSearchFiedl] = useState("");
 
-    this.state = {
-      monsters: [],
-      searchField: "",
-    };
-  }
+  const filteredMonsters = monsters.filter((monsters) => {
+    return monsters.name.toLocaleLowerCase().includes(searchField);
+  });
 
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((users) =>
-        this.setState(() => {
-          return { monsters: users };
-        })
-      );
-  }
-
-  onSeachChange = (event) => {
+  const onSeachChange = (event) => {
     const searchField = event.target.value.toLocaleLowerCase();
-    this.setState(() => {
-      return { searchField };
-    });
+    setSearchFiedl(searchField);
   };
 
-  render() {
-    const { monsters, searchField } = this.state;
-    const { onSeachChange } = this;
+  const initMonsters = () => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => setMonsters(users));
+  };
 
-    const filteredMonsters = monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(searchField);
-    });
+  useEffect(() => {
+    initMonsters();
+  });
 
-    return (
-      <div className="container">
-        <div className="header">
-          <h1 className="title">Teste</h1>
-          <ul>
-            <a href="#" className="link">Home</a>
-            <a href="#" className="link">Library</a>
-            <a href="#" className="link">About</a>
-          </ul>
-        </div>
-        <div className="App">
-          <SeachBox
-            placeholder="Seach your monsterse"
-            onChange={onSeachChange}
-          />
-          <CardList data={filteredMonsters} />
-        </div>
+  return (
+    <>
+      <Header />
+      <div className="App">
+        <SeachBox placeholder="Seach your monsterse" onChange={onSeachChange} />
+        <CardList data={filteredMonsters} />
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default App;

@@ -1,0 +1,28 @@
+.header{
+  background-color: #353535;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+}
+
+.title{
+  margin: 0px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.link{
+  color: #ffffff;
+  margin: 0px 10px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.link:hover{
+  background-color: #ffffff;
+  text-decoration: none;
+  color: black;
+}
