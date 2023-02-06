@@ -1,26 +1,22 @@
-import { Component } from "react";
-
 import "./header.style.css"
 
-class Header extends Component {
-  render() {
-    return (
-      <div className="header">
-        <h1 className="title">Logo</h1>
-        <ul>
-          <a href="#1" className="link">
-            Home
-          </a>
-          <a href="#1" className="link">
-            Library
-          </a>
-          <a href="#1" className="link">
-            About
-          </a>
-        </ul>
-      </div>
-    );
-  }
+const Header = ({title, links}) => {
+  return (
+    <div className="header">
+      <h1 className="title">{title}</h1>
+      <ul>
+        {
+          links.map((value) => {
+           return(
+            <a key={value.linkName} href={value.linkHref} className="link">
+              {value.linkName}
+            </a>
+           )
+          })
+        }
+      </ul>
+    </div>
+  );
 }
 
 export default Header

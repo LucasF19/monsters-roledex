@@ -7,7 +7,7 @@ import Header from "./components/header/header.component";
 import "./style.css";
 
 const App = () => {
-  
+
   const [monsters, setMonsters] = useState([]);
   const [searchField, setSearchFiedl] = useState("");
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
@@ -33,7 +33,19 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      <Header
+        title="Logo"
+        links={[
+          {
+            linkName: "teste",
+            linkHref: "#1",
+          },
+          {
+            linkName: "teste2",
+            linkHref: "#2",
+          },
+        ]}
+      />
       <div className="App">
         <SeachBox placeholder="Seach your monsterse" onChange={onSeachChange} />
         <CardList data={filteredMonsters} />
