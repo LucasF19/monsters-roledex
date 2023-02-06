@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CardList from "./components/card-list/card-list.component";
 import SeachBox from "./components/search-box/search-box.component";
@@ -10,25 +10,26 @@ const App = () => {
   
   const [monsters, setMonsters] = useState([]);
   const [searchField, setSearchFiedl] = useState("");
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
-  const filteredMonsters = monsters.filter((monsters) => {
-    return monsters.name.toLocaleLowerCase().includes(searchField);
-  });
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => setMonsters(users));
+  }, []);
+
+  useEffect(() => {
+    const newFilteredMonsters = monsters.filter((monsters) => {
+      return monsters.name.toLocaleLowerCase().includes(searchField);
+    });
+
+    setFilteredMonsters(newFilteredMonsters);
+  }, [monsters, searchField]);
 
   const onSeachChange = (event) => {
     const searchField = event.target.value.toLocaleLowerCase();
     setSearchFiedl(searchField);
   };
-
-  const initMonsters = () => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((users) => setMonsters(users));
-  };
-
-  useEffect(() => {
-    initMonsters();
-  });
 
   return (
     <>

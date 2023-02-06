@@ -8,13 +8,13 @@ class Header extends Component {
       <div className="header">
         <h1 className="title">Logo</h1>
         <ul>
-          <a href="#" className="link">
+          <a href="#1" className="link">
             Home
           </a>
-          <a href="#" className="link">
+          <a href="#1" className="link">
             Library
           </a>
-          <a href="#" className="link">
+          <a href="#1" className="link">
             About
           </a>
         </ul>
